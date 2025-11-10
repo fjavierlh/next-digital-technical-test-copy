@@ -1,5 +1,7 @@
+import type { UserId } from "./user-id.vo";
+
 export type User = {
-  id: string;
+  id: UserId;
   name: string;
   username: string;
   email: string;

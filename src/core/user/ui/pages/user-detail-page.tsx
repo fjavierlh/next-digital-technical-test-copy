@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import { InvalidUserIdError } from "../../domain/invalid-user-id.error";
 import { UserDetail } from "../components/user-detail";
 import { useQueryUserById } from "../hooks/useQueryUserById";
 
@@ -10,16 +11,16 @@ export const UserDetailPage = () => {
     return <div>Loading...</div>;
   }
 
+  if (error) {
+    const message =
+      error instanceof InvalidUserIdError
+        ? "Invalid user ID"
+        : "Error loading user data";
+    return <div>{message}</div>;
+  }
+
   if (!user) {
     return <div>User not found</div>;
-  }
-
-  if (userId === undefined) {
-    return <div>Invalid user ID</div>;
-  }
-
-  if (error) {
-    return <div>Error loading user data</div>;
   }
 
   return <UserDetail user={user} />;

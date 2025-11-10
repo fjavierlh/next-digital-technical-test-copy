@@ -1,3 +1,4 @@
+import { UserId } from "../domain/user-id.vo";
 import type { UserRepository } from "../domain/user.repository";
 
 export class QueryUserByIdUseCase {
@@ -8,6 +9,7 @@ export class QueryUserByIdUseCase {
   }
 
   async execute(userId: string) {
-    return this.userRepository.byId(userId);
+    const userIdVO = new UserId(userId);
+    return this.userRepository.byId(userIdVO.toString());
   }
 }

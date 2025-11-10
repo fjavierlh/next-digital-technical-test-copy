@@ -13,11 +13,14 @@ export const UsersList: React.FC<Props> = ({ users, loading }) => {
     <ul>
       {loading
         ? "Loading..."
-        : users?.map((user) => (
-            <Link to={`/user/${user.id}`} key={user.id}>
-              <li key={user.id}>{user.name}</li>
-            </Link>
-          ))}
+        : users?.map((user) => {
+            const id = user.id.toString();
+            return (
+              <Link to={`/user/${id}`} key={id}>
+                <li key={id}>{user.name}</li>
+              </Link>
+            );
+          })}
     </ul>
   );
 };
