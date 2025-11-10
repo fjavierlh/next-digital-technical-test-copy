@@ -1,22 +1,20 @@
 import type { User } from "../domain/user.model";
 import type { UserRepository } from "../domain/user.repository";
 import type { UserDTO } from "./user.dto";
+import type { UserMapper } from "./user.mapper";
 
 export class UserRestRepository implements UserRepository {
+  private readonly mapper: UserMapper;
+
+  constructor(mapper: UserMapper) {
+    this.mapper = mapper;
+  }
+
   async getAll(): Promise<User[]> {
     const response = await fetch("https://jsonplaceholder.typicode.com/users/");
     const usersData = await response.json();
 
-    return usersData.map((userData: UserDTO) => ({
-      id: String(userData.id),
-      name: userData.name,
-      email: userData.email,
-      city: userData.address.city,
-      website: userData.website,
-      company: userData.company?.name,
-      albumIds: [],
-      todoListIds: [],
-    }));
+    return usersData.map(this.mapper.toDomain);
   }
 
   async byId(userId: string): Promise<User | null> {
@@ -30,16 +28,6 @@ export class UserRestRepository implements UserRepository {
 
     const userData: UserDTO = await response.json();
 
-    return {
-      id: String(userData.id),
-      name: userData.name,
-      username: userData.username,
-      email: userData.email,
-      city: userData.address.city,
-      website: userData.website,
-      company: userData.company?.name,
-      albumIds: [],
-      todoListIds: [],
-    };
+    return this.mapper.toDomain(userData);
   }
 }
