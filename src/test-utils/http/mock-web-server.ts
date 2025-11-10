@@ -1,5 +1,5 @@
-import { DefaultBodyType, http, HttpResponse } from "msw";
-import { SetupServer, setupServer } from "msw/node";
+import { type DefaultBodyType, http, HttpResponse } from "msw";
+import { type SetupServer, setupServer } from "msw/node";
 
 export type Method = "get" | "post" | "put";
 

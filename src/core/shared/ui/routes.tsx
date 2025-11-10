@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom";
-import App from "../../../App";
 import { UserDetailPage } from "../../user/ui/pages/user-detail-page";
+import { UsersListPage } from "../../user/ui/pages/users-list-page";
 
-export const AppRoutes = () => (
+export const AppRoutes: React.FC = () => (
   <Routes>
-    <Route path="/" element={<App />} />
+    <Route path="/" element={<UsersListPage />} />
     <Route path="/user/:userId" element={<UserDetailPage />} />
   </Routes>
 );
