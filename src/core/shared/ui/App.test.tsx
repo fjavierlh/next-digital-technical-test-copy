@@ -1,18 +1,17 @@
-import { screen } from "@testing-library/react";
-import App from "./App";
-import { usersDTOMock } from "./core/user/infrastructure/user.dto.mock";
-import { renderWithProviders } from "./test-utils/render/render-with-providers";
-import { givenUsers } from "./test-utils/http/given-users";
+import { render, screen } from "@testing-library/react";
+import { givenUsers } from "../../../test-utils/http/given-users";
+import { usersDTOMock } from "../../user/infrastructure/user.dto.mock";
+import { App } from "./App";
 
 describe("App", () => {
   it("should render", () => {
-    renderWithProviders(<App />);
+    render(<App />);
     expect(screen.getByText(/loading.../i)).toBeInTheDocument();
   });
 
   it("should display a list of users", async () => {
     givenUsers();
-    renderWithProviders(<App />);
+    render(<App />);
     const firstUser = await screen.findByText(usersDTOMock[0].name);
     const secondUser = await screen.findByText(usersDTOMock[1].name);
     expect(firstUser).toBeInTheDocument();

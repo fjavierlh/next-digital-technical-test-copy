@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
-import "./App.css";
-import { useQueryAllUsers } from "./core/user/ui/hooks/useQueryAllUsers";
+import type { User } from "../../domain/user.model";
 
-function App() {
-  const { data: users, isLoading } = useQueryAllUsers();
+import React from "react";
 
+export const UsersList: React.FC<{ users: User[]; loading: boolean }> = ({
+  users,
+  loading,
+}) => {
   return (
     <ul>
-      {isLoading
+      {loading
         ? "Loading..."
         : users?.map((user) => (
             <Link to={`/user/${user.id}`} key={user.id}>
@@ -16,6 +18,4 @@ function App() {
           ))}
     </ul>
   );
-}
-
-export default App;
+};
