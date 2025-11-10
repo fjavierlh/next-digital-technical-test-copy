@@ -3,10 +3,12 @@ import type { User } from "../../domain/user.model";
 
 import React from "react";
 
-export const UsersList: React.FC<{ users: User[]; loading: boolean }> = ({
-  users,
-  loading,
-}) => {
+type Props = {
+  users: User[];
+  loading: boolean;
+};
+
+export const UsersList: React.FC<Props> = ({ users, loading }) => {
   return (
     <ul>
       {loading
