@@ -5,16 +5,17 @@ import { useQueryUserById } from "../hooks/useQueryUserById";
 export const UserDetailPage = () => {
   const { userId } = useParams();
   const { data: user, isLoading, error } = useQueryUserById(userId!);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   if (!user) {
     return <div>User not found</div>;
   }
 
   if (userId === undefined) {
     return <div>Invalid user ID</div>;
-  }
-
-  if (isLoading) {
-    return <div>Loading...</div>;
   }
 
   if (error) {
