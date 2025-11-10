@@ -33,6 +33,7 @@ export class UserRestRepository implements UserRepository {
     return {
       id: String(userData.id),
       name: userData.name,
+      username: userData.username,
       email: userData.email,
       city: userData.address.city,
       website: userData.website,
