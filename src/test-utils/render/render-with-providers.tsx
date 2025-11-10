@@ -4,9 +4,17 @@ import React from "react";
 import { QueryClientWrapper } from "./query-client-wrapper";
 import { RouterWrapper } from "./router-wrapper";
 
-export function renderWithProviders(ui: React.ReactElement) {
+type RenderWithProvidersOptions = {
+  initialEntries?: string[];
+};
+
+export function renderWithProviders(
+  ui: React.ReactElement,
+  options: RenderWithProvidersOptions = {}
+) {
+  const { initialEntries } = options;
   return render(
-    <RouterWrapper>
+    <RouterWrapper initialEntries={initialEntries}>
       <QueryClientWrapper>{ui}</QueryClientWrapper>
     </RouterWrapper>
   );
