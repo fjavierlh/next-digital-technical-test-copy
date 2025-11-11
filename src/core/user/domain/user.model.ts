@@ -1,4 +1,5 @@
-import type { UserId } from "./user-id.vo";
+import { UserId } from "./user-id.vo";
+
 
 export type User = {
   id: UserId;

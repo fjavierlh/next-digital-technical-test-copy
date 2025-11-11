@@ -1,21 +1,23 @@
+import type { Brand } from "../../shared/domain/brand";
+import type { IdFactory } from "../../shared/domain/id-factory.interface";
 import { InvalidUserIdError } from "./invalid-user-id.error";
 
-export class UserId {
-  private readonly value: string;
+export type UserId = Brand<string, "UserId">;
 
-  constructor(value: string) {
+export const UserId: IdFactory<UserId> = {
+  create(value: string): UserId {
+    if (!value || value.trim() === "") {
+      throw new Error("UserId cannot be empty");
+    }
+
     const isDigit = /^\d+$/.test(value);
-    if (!isDigit) {
+    if (!isDigit || value === "0") {
       throw new InvalidUserIdError();
     }
-    this.value = value;
-  }
 
-  static isValid(value: string): boolean {
-    return /^\d+$/.test(value);
-  }
-
-  toString() {
-    return this.value;
-  }
-}
+    return value as UserId;
+  },
+  equals(id1: UserId, id2: UserId): boolean {
+    return id1 === id2;
+  },
+};
