@@ -4,7 +4,7 @@ import type { UserDTO } from "./user.dto";
 
 export class UserMapper {
   readonly toDomain = (userData: UserDTO): User => ({
-    id: new UserId(String(userData.id)),
+    id: UserId.create(String(userData.id)),
     name: userData.name,
     username: userData.username,
     email: userData.email,

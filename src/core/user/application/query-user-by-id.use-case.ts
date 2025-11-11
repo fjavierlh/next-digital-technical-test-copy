@@ -9,7 +9,7 @@ export class QueryUserByIdUseCase {
   }
 
   async execute(userId: string) {
-    const userIdVO = new UserId(userId);
-    return this.userRepository.byId(userIdVO.toString());
+    const userIdVO = UserId.create(userId);
+    return this.userRepository.byId(userIdVO);
   }
 }
