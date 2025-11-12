@@ -42,7 +42,7 @@ describe("UserDetailPage", () => {
     }
   });
 
-  it.only("should render error state for non-existing user", async () => {
+  it("should render error state for non-existing user", async () => {
     const nonExistingUserId = "999";
     givenUserNotFound(nonExistingUserId);
     givenAlbumsNotFound(nonExistingUserId);
