@@ -1,5 +1,6 @@
 import React from "react";
 import type { Album } from "../../domain/album.model";
+import { Link } from "react-router-dom";
 
 type Props = {
   albums?: Album[];
@@ -26,13 +27,15 @@ export const AlbumsList: React.FC<Props> = ({ albums, loading, error }) => {
       <ul>
         {albums.map((album) => (
           <li key={album.id}>
-            {album.title}
-            {album?.photos?.[0] ? (
-              <img
-                src={album.photos[0].thumbnailUrl}
-                alt={album.photos[0].title}
-              />
-            ) : null}
+            <Link to={`./album/${album.id}`}>
+              {album.title}
+              {album?.photos?.[0] ? (
+                <img
+                  src={album.photos[0].thumbnailUrl}
+                  alt={album.photos[0].title}
+                />
+              ) : null}
+            </Link>
           </li>
         ))}
       </ul>
