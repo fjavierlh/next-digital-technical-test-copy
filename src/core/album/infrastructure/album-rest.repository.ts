@@ -5,6 +5,22 @@ import type { AlbumRepository } from "../domain/album.repository";
 import type { AlbumDTO } from "./album.dto";
 
 export class AlbumRestRepository implements AlbumRepository {
+  async byId(userId: UserId, albumId: AlbumId): Promise<Album | null> {
+    const response = await fetch(
+      `https://jsonplaceholder.typicode.com/users/${userId}/albums?id=${albumId}`
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch album");
+    }
+
+    const album: AlbumDTO = await response.json();
+    return {
+      id: AlbumId.create(String(album.id)),
+      title: album.title,
+    };
+  }
+
   async byUserId(userId: UserId): Promise<Album[]> {
     const response = await fetch(
       `https://jsonplaceholder.typicode.com/users/${userId}/albums`

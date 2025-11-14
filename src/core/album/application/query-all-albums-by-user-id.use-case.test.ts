@@ -15,6 +15,7 @@ describe("QueryAllAlbumsByUserIdUseCase", () => {
 
   beforeEach(() => {
     albumRepository = {
+      byId: vi.fn(),
       byUserId: vi.fn(),
     };
 

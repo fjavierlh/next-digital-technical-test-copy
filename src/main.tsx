@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
-import { App } from "./core/shared/ui/App";
+import { App } from "./core/shared/ui/components/App";
 
 import "./index.css";
 

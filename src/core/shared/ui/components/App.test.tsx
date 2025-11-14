@@ -1,6 +1,8 @@
 import { render, screen } from "@testing-library/react";
-import { givenUsers } from "../../../test-utils/http/given-users";
-import { usersDTOMock } from "../../user/infrastructure/user.dto.mock";
+
+import { givenUsers } from "../../../../test-utils/http/given-users";
+import { usersDTOMock } from "../../../user/infrastructure/user.dto.mock";
+
 import { App } from "./App";
 
 describe("App", () => {
