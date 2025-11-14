@@ -23,7 +23,7 @@ test.describe("Application", () => {
     const list = page.getByRole("list");
     await expect(list).toBeVisible();
     const listItems = list.getByRole("listitem");
-    expect(listItems).toHaveCount(users.length);
+    await expect(listItems).toHaveCount(users.length);
     expect(listItems).toHaveText(users.map((user) => user.name));
   });
 
@@ -62,17 +62,17 @@ test.describe("Application", () => {
     const items = await listItems.all();
     for (const item of items) {
       const link = item.getByRole("link");
-      expect(link).toBeVisible();
+      await expect(link).toBeVisible();
       expect(link).toHaveAttribute(
         "href",
         `/user/${user.id}/album/${albumsData[items.indexOf(item)].id}`
       );
 
       const paragraph = item.getByText(albumsData[items.indexOf(item)].title);
-      expect(paragraph).toBeVisible();
+      await expect(paragraph).toBeVisible();
 
       const img = item.getByRole("img");
-      expect(img).toBeVisible();
+      await expect(img).toBeVisible();
     }
   });
 
@@ -107,7 +107,7 @@ test.describe("Application", () => {
       const img = item.getByRole("img");
       const itemIndex = items.indexOf(item);
       const photo = photos[itemIndex];
-      expect(img).toHaveAttribute("src", transformPhotoUrl(photo.url));
+      await expect(img).toHaveAttribute("src", transformPhotoUrl(photo.url));
       expect(img).toHaveAttribute("alt", photo.title);
     }
   });
