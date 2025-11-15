@@ -5,3 +5,5 @@ export type Todo = {
   title: string;
   completed: boolean;
 };
+
+export type TodoDraft = Omit<Todo, "id">;
