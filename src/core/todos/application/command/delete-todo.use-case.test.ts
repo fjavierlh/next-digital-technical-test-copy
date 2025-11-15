@@ -9,7 +9,6 @@ describe("DeleteTodoUseCase", () => {
 
   beforeEach(() => {
     todoRepository = {
-      byId: vi.fn(),
       byUserId: vi.fn(),
       create: vi.fn(),
       delete: vi.fn(),

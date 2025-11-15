@@ -9,7 +9,6 @@ describe("QueryTodoListByUserIdUseCase", () => {
 
   beforeEach(() => {
     todoRepository = {
-      byId: vi.fn(),
       byUserId: vi.fn().mockResolvedValue(todoListMock),
       create: vi.fn(),
       delete: vi.fn(),
