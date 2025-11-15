@@ -1,5 +1,5 @@
-import { UserId } from "../../user/domain/user-id.vo";
-import type { TodoRepository } from "../domain/todo.repository";
+import { UserId } from "../../../user/domain/user-id.vo";
+import type { TodoRepository } from "../../domain/todo.repository";
 
 export class QueryTodoListByUserIdUseCase {
   private readonly todoRepository: TodoRepository;

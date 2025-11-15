@@ -1,5 +1,5 @@
 import type { Mocked } from "vitest";
-import type { TodoRepository } from "../domain/todo.repository";
+import type { TodoRepository } from "../../domain/todo.repository";
 import { CreateTodoUseCase } from "./create-todo.use-case";
 
 describe("CreateTodoUseCase", () => {

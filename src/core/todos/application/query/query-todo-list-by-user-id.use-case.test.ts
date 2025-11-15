@@ -1,6 +1,6 @@
 import type { Mocked } from "vitest";
-import { todoListMock } from "../domain/todo.model.mock";
-import type { TodoRepository } from "../domain/todo.repository";
+import { todoListMock } from "../../domain/todo.model.mock";
+import type { TodoRepository } from "../../domain/todo.repository";
 import { QueryTodoListByUserIdUseCase } from "./query-todo-list-by-user-id.use-case";
 
 describe("QueryTodoListByUserIdUseCase", () => {
