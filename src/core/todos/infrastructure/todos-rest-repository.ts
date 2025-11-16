@@ -2,7 +2,7 @@ import type { UserId } from "../../user/domain/user-id.vo";
 import { TodoId } from "../domain/todo-id.vo";
 import type { Todo, TodoDraft } from "../domain/todo.model";
 import type { TodoRepository } from "../domain/todo.repository";
-import type { TodoDto } from "./todo.dto";
+import type { TodoDTO } from "./todo.dto";
 
 export class TodosRestRepository implements TodoRepository {
   async byUserId(userId: UserId): Promise<Todo[]> {
@@ -12,7 +12,7 @@ export class TodosRestRepository implements TodoRepository {
     if (!response.ok) {
       throw new Error("Failed to fetch todos");
     }
-    const todosData: Array<TodoDto> = await response.json();
+    const todosData: Array<TodoDTO> = await response.json();
 
     return todosData.map<Todo>((todo) => ({
       id: TodoId.create(String(todo.id)),
