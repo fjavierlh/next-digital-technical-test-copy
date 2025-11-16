@@ -36,15 +36,28 @@ export const interceptUserNetworkRequest = (
     200
   )(page);
 
+export const interceptTodosNetworkRequest = (
+  page: Page,
+  userId: number
+): Promise<PhotoDTO[]> =>
+  createInterceptorNetwork<PhotoDTO[]>(
+    `https://jsonplaceholder.typicode.com/users/${userId}/todos`,
+    200
+  )(page);
+
 function createInterceptorNetwork<T>(
   url: string,
-  status: number
+  status: number,
+  method: "GET" | "POST" | "PUT" | "DELETE" = "GET"
 ): (page: Page) => Promise<T> {
   return async (page: Page): Promise<T> => {
-    const request = await page.waitForResponse(
-      (req) => req.url().includes(url) && req.status() === status
+    const response = await page.waitForResponse(
+      (res) =>
+        res.url().includes(url) &&
+        res.status() === status &&
+        res.request().method() === method
     );
-    const data: T = await request.json();
+    const data: T = await response.json();
     return data;
   };
 }
