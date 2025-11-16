@@ -1,6 +1,5 @@
 import { UserId } from "./user-id.vo";
 
-
 export type User = {
   id: UserId;
   name: string;
@@ -9,6 +8,4 @@ export type User = {
   city: string;
   website?: string;
   company?: string;
-  albumIds: number[];
-  todoListIds: number[];
 };
