@@ -1,30 +1,26 @@
 import { useState } from "react";
 
 type Props = {
-  onCreateTodo: (title: string) => Promise<void> | void;
-  isCreatingTodo?: boolean;
+  onSubmit: (title: string) => Promise<void> | void;
+  pending?: boolean;
   error?: Error | null;
 };
 
-export const TodoForm: React.FC<Props> = ({
-  onCreateTodo,
-  isCreatingTodo,
-  error,
-}) => {
+export const TodoForm: React.FC<Props> = ({ onSubmit, pending, error }) => {
   const [title, setTitle] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const trimmedTitle = title.trim();
     if (trimmedTitle === "") {
       return;
     }
-    await onCreateTodo(trimmedTitle);
+    await onSubmit(trimmedTitle);
     setTitle("");
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleOnSubmit}>
       <input
         type="text"
         placeholder="New todo title"
@@ -35,7 +31,7 @@ export const TodoForm: React.FC<Props> = ({
       />
       {error && <div style={{ color: "red" }}>{error.message}</div>}
       {
-        <button type="submit" disabled={isCreatingTodo}>
+        <button type="submit" disabled={pending}>
           Add Todo
         </button>
       }
