@@ -1,20 +1,23 @@
-import { screen } from "@testing-library/react";
+import { screen, waitFor, within } from "@testing-library/react";
 import { Route, Routes } from "react-router-dom";
 import { givenAlbums } from "../../../../test-utils/http/given-albums";
+import { givenAlbumsNotFound } from "../../../../test-utils/http/given-albums-not-found";
 import { givenPhotos } from "../../../../test-utils/http/given-photos";
+import { givenTodos } from "../../../../test-utils/http/given-todos";
 import { givenUser } from "../../../../test-utils/http/given-user";
 import { givenUserInternalServerError } from "../../../../test-utils/http/given-user-internal-server-error";
 import { givenUserNotFound } from "../../../../test-utils/http/given-user-not-found";
 import { renderWithProviders } from "../../../../test-utils/render/render-with-providers";
+import type { AlbumDTO } from "../../../album/infrastructure/album.dto";
+import type { TodoDTO } from "../../../todos/infrastructure/todo.dto";
 import type { UserDTO } from "../../../user/infrastructure/user.dto";
 import { UserDetailPage } from "./user-detail-page";
-import { givenAlbumsNotFound } from "../../../../test-utils/http/given-albums-not-found";
-import type { AlbumDTO } from "../../../album/infrastructure/album.dto";
 
 describe("UserDetailPage", () => {
   const userId = "1";
   let user: UserDTO;
   let albums: AlbumDTO[];
+  let todos: TodoDTO[];
 
   beforeEach(() => {
     const { response } = givenUser(userId);
@@ -22,6 +25,8 @@ describe("UserDetailPage", () => {
     const { response: albumsResponse } = givenAlbums(userId);
     albums = albumsResponse;
     givenPhotos();
+    const { response: todosResponse } = givenTodos(userId);
+    todos = todosResponse;
   });
 
   it("should render loading state", () => {
@@ -36,9 +41,18 @@ describe("UserDetailPage", () => {
     expect(userName).toBeInTheDocument();
     expect(userEmail).toBeInTheDocument();
 
+    await waitFor(() => expect(screen.getAllByRole("list").length).toBe(2));
+
+    const [albumList, todoList] = screen.getAllByRole("list");
+
     for (const album of albums) {
-      const albumTitle = await screen.findByText(album.title);
+      const albumTitle = await within(albumList).findByText(album.title);
       expect(albumTitle).toBeInTheDocument();
+    }
+
+    for (const todo of todos) {
+      const todoTitle = await within(todoList).findByText(todo.title);
+      expect(todoTitle).toBeInTheDocument();
     }
   });
 

@@ -1,10 +1,12 @@
 import { render } from "@testing-library/react";
 import { UserDetail } from "./user-detail";
+import type { User } from "../../domain/user.model";
+import { UserId } from "../../domain/user-id.vo";
 
 describe("UserDetail", () => {
   it("should render user details correctly", () => {
-    const mockUser = {
-      id: "1",
+    const mockUser: User = {
+      id: UserId.create("1"),
       name: "John Doe",
       username: "johndoe",
       email: "john.doe@example.com",

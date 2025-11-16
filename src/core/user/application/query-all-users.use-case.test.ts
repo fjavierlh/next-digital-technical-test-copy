@@ -14,6 +14,7 @@ export type User = {
 };
 
 const mockUserRepository: UserRepository = {
+  byId: vi.fn(),
   getAll: vi.fn().mockResolvedValue([userModelMock]),
 };
 

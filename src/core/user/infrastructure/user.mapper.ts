@@ -11,7 +11,5 @@ export class UserMapper {
     city: userData.address.city,
     website: userData.website,
     company: userData.company?.name,
-    albumIds: [],
-    todoListIds: [],
   });
 }
